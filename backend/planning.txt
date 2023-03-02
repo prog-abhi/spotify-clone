@@ -1,0 +1,13 @@
+Fake artists and albums for songs
+    Artist name         album name      song name
+1.  Zaphod Beeb         Dark            Sinister Power Rising
+2.  Zaphod Beeb         Dark            Black Box
+3.  Lionell Helmgart    StarStuck       Ambient Dreamy Clouds
+4.  Satish MD           StarStuck       Ambient Dreamy Clouds
+5.  Md. Ismail          Power           Energy Pill
+6.  Lily Koretkevich    Pink            Can't Fall In Love
+7.  Lily Koretkevich    Melody          In The Forest
+8.  Karen Gun           Just do it      Legendary Piano
+9.  Dong Lee            Beats           Stuck In a Dream
+10. Gun Park            Remembrance     Electric
+11. Gun Park            Remembrance     Stomp Rap
