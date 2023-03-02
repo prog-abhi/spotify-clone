@@ -1,13 +1,13 @@
 Fake artists and albums for songs
-    Artist name         album name      song name
-1.  Zaphod Beeb         Dark            Sinister Power Rising
-2.  Zaphod Beeb         Dark            Black Box
-3.  Lionell Helmgart    StarStuck       Ambient Dreamy Clouds
-4.  Satish MD           StarStuck       Ambient Dreamy Clouds
-5.  Md. Ismail          Power           Energy Pill
-6.  Lily Koretkevich    Pink            Can't Fall In Love
-7.  Lily Koretkevich    Melody          In The Forest
-8.  Karen Gun           Just do it      Legendary Piano
-9.  Dong Lee            Beats           Stuck In a Dream
-10. Gun Park            Remembrance     Electric
-11. Gun Park            Remembrance     Stomp Rap
+    Artist name         album name      song name                   img_path
+1.  Zaphod Beeb         Dark            Sinister Power Rising       'backend/db/images/camera-g95da31dea_640.jpg'
+2.  Zaphod Beeb         Dark            Black Box                   'backend/db/images/camera-g95da31dea_640.jpg'
+3.  Lionell Helmgart    StarStuck       Ambient Dreamy Clouds       'backend/db/images/cat-ge22ab5290_640.jpg'
+4.  Satish MD           StarStuck       Ambient Dreamy Clouds       'backend/db/images/cat-ge22ab5290_640.jpg'
+5.  Md. Ismail          Power           Energy Pill                 'backend/db/images/mountains-gf4f05b159_640.jpg'
+6.  Lily Koretkevich    Pink            Can't Fall In Love          'backend/db/images/paintbrush-gef6964d89_640.jpg'
+7.  Lily Koretkevich    Melody          In The Forest               'backend/db/images/sea-g841682d20_640.jpg'
+8.  Karen Gun           Just do it      Legendary Piano             'backend/db/images/silhouette-g1f9239d59_640.png'
+9.  Dong Lee            Beats           Stuck In a Dream            'backend/db/images/v2osk-1Z2niiBPg5A-unsplash.jpg'
+10. Gun Park            Remembrance     Electric                    'backend/db/images/vintage-pocket-watch-ge23d15f23_640.jpg'
+11. Gun Park            Remembrance     Stomp Rap                   'backend/db/images/vintage-pocket-watch-ge23d15f23_640.jpg'
