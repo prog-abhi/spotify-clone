@@ -9,13 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      user.hasMany(models.playlist, {
+        foreignKey: "user_id",
+        onDelete: "cascade",
+        hooks: true,
+      });
     }
   }
   user.init(
     {
-      username: DataTypes.STRING,
-      first_name: DataTypes.STRING,
-      last_name: DataTypes.STRING,
+      username: DataTypes.STRING(50),
+      first_name: DataTypes.STRING(50),
+      last_name: DataTypes.STRING(50),
       email: DataTypes.STRING,
       hashed_password: DataTypes.STRING,
     },
