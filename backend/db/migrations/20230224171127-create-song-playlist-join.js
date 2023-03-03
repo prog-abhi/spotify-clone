@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      song_id: {
+      songId: {
         type: Sequelize.INTEGER,
         references: {
           model: "songs",
@@ -17,7 +17,7 @@ module.exports = {
         },
         onDelete: "cascade",
       },
-      playlist_id: {
+      playlistId: {
         type: Sequelize.INTEGER,
         references: {
           model: "playlists",
