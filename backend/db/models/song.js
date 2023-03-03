@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
         through: models.song_playlist_join,
       });
 
-      song.belongsToMany(models.artist, { through: models.artist_song_join });
+      song.belongsToMany(models.artist, {
+        through: models.artist_song_join,
+      });
     }
   }
   song.init(
