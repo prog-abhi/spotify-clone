@@ -1,5 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
+const bcrypt = require("bcryptjs");
+
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -14,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "cascade",
         hooks: true,
       });
+    }
+
+    static generateHashpassword(password) {
+      return bcrypt.hashSync(password);
+    }
+
+    static checkPassword(password, hashed_password) {
+      return bcrypt.compareSync(password, hashed_password);
     }
   }
   user.init(

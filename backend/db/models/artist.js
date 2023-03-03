@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      artist.belongsToMany(models.song, { through: models.artist_song_join });
+      artist.belongsToMany(models.song, {
+        through: models.artist_song_join,
+      });
     }
   }
   artist.init(
