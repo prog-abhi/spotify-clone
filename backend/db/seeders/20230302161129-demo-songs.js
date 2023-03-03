@@ -109,7 +109,7 @@ module.exports = {
       const albumObj = await album.findOne({ where: { title: albumTitle } });
       for (let songIdx = 0; songIdx < songs.length; songIdx++) {
         const songObj = songs[songIdx];
-        await song.destroy({ ...songObj, album_id: albumObj.id });
+        await song.destroy({ where: { ...songObj, album_id: albumObj.id } });
       }
     }
   },
