@@ -36,6 +36,21 @@ app.get("/index", (req, res) => {
   res.send("Can't see me!");
 });
 
+app.use((req, res, next) => {
+  const err = new Error("Invalid endpoint!");
+  err.status = 402;
+  next(err);
+});
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    status: "Error",
+    msg: err.message,
+    stack: !isProduction ? err.stack : null,
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
