@@ -10,7 +10,7 @@ router.get("/", (req, res, next) => {
 router.post("/", async (req, res, next) => {
   const { credential, password } = req.body;
   try {
-    const userObj = await User.findOne({
+    const userObj = await User.scope("admin").findOne({
       where: {
         [Op.or]: [{ username: credential }, { email: credential }],
       },
@@ -25,7 +25,8 @@ router.post("/", async (req, res, next) => {
         err.status = 404;
         throw err;
       } else {
-        res.json(userObj);
+        const user = await User.scope("user").findByPk(userObj.id);
+        res.json(user);
       }
     }
   } catch (error) {

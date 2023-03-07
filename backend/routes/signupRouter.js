@@ -22,10 +22,12 @@ router.post("/", async (req, res, next) => {
 
     await userObj.save();
 
+    const user = await User.scope("user").findByPk(userObj.id);
+
     res.json({
       status: "Success",
       msg: "New user added",
-      user: userObj.toJSON(),
+      user: user.toJSON(),
     });
   } catch (error) {
     error.status = 401;
