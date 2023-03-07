@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes) => {
@@ -36,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
           len: [5, 50],
           isNotEmail(value) {
-            if (this.isEmail(value)) {
+            if (validator.isEmail(value)) {
               throw new Error("Username cannot be a email address!");
             }
           },
