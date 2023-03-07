@@ -28,11 +28,54 @@ module.exports = (sequelize, DataTypes) => {
   }
   user.init(
     {
-      username: DataTypes.STRING(50),
-      first_name: DataTypes.STRING(50),
-      last_name: DataTypes.STRING(50),
-      email: DataTypes.STRING,
-      hashed_password: DataTypes.STRING,
+      username: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: true,
+        validate: {
+          notEmpty: true,
+          len: [5, 50],
+          isNotEmail(value) {
+            if (this.isEmail(value)) {
+              throw new Error("Username cannot be a email address!");
+            }
+          },
+        },
+      },
+      first_name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [3, 50],
+          isAlpha: true,
+        },
+      },
+      last_name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [3, 50],
+          isAlpha: true,
+        },
+      },
+      email: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: true,
+        validate: {
+          notEmpty: true,
+          isEmail: true,
+        },
+      },
+      hashed_password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
     },
     {
       sequelize,

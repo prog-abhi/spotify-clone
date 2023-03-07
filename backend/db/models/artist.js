@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const validator = require("validator");
 module.exports = (sequelize, DataTypes) => {
   class artist extends Model {
     /**
@@ -16,9 +17,35 @@ module.exports = (sequelize, DataTypes) => {
   }
   artist.init(
     {
-      first_name: DataTypes.STRING(50),
-      last_name: DataTypes.STRING(50),
-      image_path: DataTypes.STRING,
+      first_name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [3, 50],
+          isAlpha: true,
+        },
+      },
+      last_name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [3, 50],
+          isAlpha: true,
+        },
+      },
+      image_path: {
+        type: DataTypes.STRING,
+        unique: true,
+        validate: {
+          customValidator(value) {
+            if (!validator.isAlphanumeric(value, "en-US", { ignore: "/\\" })) {
+              throw new Error("Invalid path format!");
+            }
+          },
+        },
+      },
     },
     {
       sequelize,
