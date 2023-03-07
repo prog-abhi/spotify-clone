@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const validator = require("validator");
 module.exports = (sequelize, DataTypes) => {
   class playlist extends Model {
     /**
@@ -9,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      playlist.belongsTo(models.user, { foreignKey: "user_id" });
+      playlist.belongsTo(models.user, {
+        foreignKey: "user_id",
+        onDelete: "cascade",
+        hooks: true,
+      });
 
       playlist.belongsToMany(models.song, {
         through: models.song_playlist_join,
@@ -18,8 +23,27 @@ module.exports = (sequelize, DataTypes) => {
   }
   playlist.init(
     {
-      title: DataTypes.STRING(50),
-      user_id: DataTypes.INTEGER,
+      title: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: true,
+        validate: {
+          notEmpty: true,
+          len: [3, 50],
+          customIsAlphaNumeric(value) {
+            if (!validator.isAlphanumeric(value, "en-US", { ignore: " -" })) {
+              throw new Error(
+                "Title names can only contain alphanumeric characters along with spaces and hyphen!"
+              );
+            }
+          },
+        },
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: { isNumeric: true },
+      },
     },
     {
       sequelize,
