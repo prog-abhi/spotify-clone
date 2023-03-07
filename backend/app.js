@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const csurf = require("csurf");
 const cors = require("cors");
 
+const { router } = require("./routes");
+
 const port = process.env.PORT || 5000;
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -32,9 +34,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/index", (req, res) => {
-  res.send("Can't see me!");
-});
+app.use("/api", router);
 
 app.use((req, res, next) => {
   const err = new Error("Invalid endpoint!");
