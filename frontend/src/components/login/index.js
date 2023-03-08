@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./index.css";
 
 export default function Login() {
@@ -46,7 +47,9 @@ export default function Login() {
             <span>Don't have an account</span>
           </div>
           <div id="login_main_container_footer_sign_up_button_div">
-            <button>SIGN UP FOR SPOTIFY</button>
+            <Link to="/signup">
+              <button>SIGN UP FOR SPOTIFY</button>
+            </Link>
           </div>
         </div>
       </div>
