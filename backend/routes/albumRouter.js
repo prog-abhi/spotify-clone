@@ -43,7 +43,7 @@ router.get("/", async (req, res, next) => {
   let { page, results } = req.query;
   let limit = 5;
   let offset = 0;
-
+  
   if (Object.keys(req.query).includes("title")) {
     options["where"] = {
       title: req.query["title"],
