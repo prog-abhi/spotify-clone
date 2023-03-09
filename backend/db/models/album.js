@@ -50,6 +50,18 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "album",
+      defaultScope: {
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      },
+      scopes: {
+        admin: {
+          attributes: {
+            exclude: [],
+          },
+        },
+      },
     }
   );
   return album;
