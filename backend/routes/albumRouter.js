@@ -1,4 +1,6 @@
+require("dotenv").config();
 const validator = require("validator");
+const path = require("path");
 const { album: Album } = require("../db/models");
 const router = require("express").Router();
 
@@ -15,14 +17,22 @@ async function validateId(req, res, next) {
       err.status = 404;
       next(err);
     }
-    res.album = album;
     next();
   }
 }
 
+// get specified album images
+router.get("/:id/image", validateId, async (req, res, next) => {
+  const album = await Album.findByPk(
+    parseInt(req.params.id, { attributes: ["image_path"] })
+  );
+  res.sendFile(path.join(process.env.IMAGE_DIR, album.image_path));
+});
+
 // get specified album
 router.get("/:id", validateId, async (req, res, next) => {
-  res.json(res.album);
+  const album = await Album.findByPk(parseInt(req.params.id));
+  res.json(album);
 });
 
 // get all the albums
