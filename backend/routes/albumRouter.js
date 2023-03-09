@@ -31,8 +31,6 @@ router.get("/", async (req, res, next) => {
 
   // pagination
   let { page, results } = req.query;
-  page = parseInt(page);
-  results = parseInt(results);
   let limit = 5;
   let offset = 0;
 
@@ -42,9 +40,11 @@ router.get("/", async (req, res, next) => {
     };
   }
   try {
-    if (results) {
+    if (validator.isInt(results)) {
+      results = parseInt(results);
       if (results >= 1) {
-        if (page) {
+        if (validator.isInt(page)) {
+          page = parseInt(page);
           if (page > 0) {
             const count = await Album.count(options);
             if (page <= Math.ceil(count / results)) {
