@@ -15,8 +15,9 @@ router.get("/:id", validateArtistId, async (req, res, next) => {
   res.json(artist);
 });
 
-router.get("/", (req, res, next) => {
-  res.send("We are inside the artist router");
+router.get("/", async (req, res, next) => {
+  const artists = await Artist.findAll();
+  res.json(artists);
 });
 
 module.exports = {
