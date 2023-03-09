@@ -2,27 +2,17 @@ require("dotenv").config();
 const validator = require("validator");
 const path = require("path");
 const { album: Album } = require("../db/models");
+const { validateIdGenerator } = require("./utilities");
+
 const router = require("express").Router();
 
-async function validateId(req, res, next) {
-  const { id } = req.params;
-  if (!validator.isInt(id)) {
-    const err = new Error("Route parameter id should be an integer!");
-    err.status = 404;
-    next(err);
-  } else {
-    const album = await Album.findByPk(parseInt(id));
-    if (!album) {
-      const err = new Error(`Album with id ${id} not found!`);
-      err.status = 404;
-      next(err);
-    }
-    next();
-  }
-}
+const validateAlbumId = validateIdGenerator(
+  Album,
+  (id) => `Album with id ${id} not found!`
+);
 
 // get specified album images
-router.get("/:id/image", validateId, async (req, res, next) => {
+router.get("/:id/image", validateAlbumId, async (req, res, next) => {
   const album = await Album.findByPk(
     parseInt(req.params.id, { attributes: ["image_path"] })
   );
@@ -30,7 +20,7 @@ router.get("/:id/image", validateId, async (req, res, next) => {
 });
 
 // get specified album
-router.get("/:id", validateId, async (req, res, next) => {
+router.get("/:id", validateAlbumId, async (req, res, next) => {
   const album = await Album.findByPk(parseInt(req.params.id));
   res.json(album);
 });
@@ -43,7 +33,7 @@ router.get("/", async (req, res, next) => {
   let { page, results } = req.query;
   let limit = 5;
   let offset = 0;
-  
+
   if (Object.keys(req.query).includes("title")) {
     options["where"] = {
       title: req.query["title"],
