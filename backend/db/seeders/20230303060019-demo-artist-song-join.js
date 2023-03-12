@@ -31,7 +31,7 @@ const artistSongs = [
   {
     artist: {
       first_name: "Satish",
-      last_name: "MD",
+      last_name: "MDS",
     },
     songs: [
       {
@@ -57,7 +57,7 @@ const artistSongs = [
     },
     songs: [
       {
-        title: "Can't Fall In Love",
+        title: "Cant Fall In Love",
       },
       {
         title: "In The Forest",

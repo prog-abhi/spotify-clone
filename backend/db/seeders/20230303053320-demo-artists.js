@@ -11,7 +11,7 @@ const artistsArray = [
   },
   {
     first_name: "Satish",
-    last_name: "MD",
+    last_name: "MDS",
   },
   {
     first_name: "Md.",

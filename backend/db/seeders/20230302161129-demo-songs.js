@@ -34,7 +34,7 @@ const albumSongs = [
     albumTitle: "Pink",
     songs: [
       {
-        title: "Can't Fall In Love",
+        title: "Cant Fall In Love",
       },
     ],
   },
