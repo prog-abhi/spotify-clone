@@ -15,6 +15,11 @@ const optionsMiddleware = optionsGenerator(["title"]);
 
 const paginationMiddleware = paginationGenerator(Playlist);
 
+router.get("/:id", validateId, async (req, res, next) => {
+  const playlist = await Playlist.findByPk(req.params.id);
+  res.json(playlist);
+});
+
 router.get(
   "/",
   optionsMiddleware,
