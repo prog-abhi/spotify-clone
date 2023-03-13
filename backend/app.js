@@ -6,6 +6,7 @@ const csurf = require("csurf");
 const cors = require("cors");
 
 const { router } = require("./routes");
+const e = require("express");
 
 const port = process.env.PORT || 5000;
 const isProduction = process.env.NODE_ENV === "production";
@@ -46,8 +47,14 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
     status: "Error",
-    msg: err.message,
-    stack: !isProduction ? err.stack : null,
+    msg: Array.isArray(err)
+      ? err.map((e) => e.message).join("\n")
+      : err.message,
+    stack: !isProduction
+      ? Array.isArray(err)
+        ? err.map((e) => e.stack).join("\n")
+        : err.stack
+      : null,
   });
 });
 
