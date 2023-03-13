@@ -1,10 +1,30 @@
 const { playlist: Playlist } = require("../db/models");
+const {
+  validateIdGenerator,
+  optionsGenerator,
+  paginationGenerator,
+} = require("./utilities");
 const router = require("express").Router();
 
-router.get("/", async (req, res, next) => {
-  const playlists = await Playlist.findAll();
-  res.json(playlists);
-});
+const validateId = validateIdGenerator(
+  Playlist,
+  (id) => `Playlist with id ${id} not found!`
+);
+
+const optionsMiddleware = optionsGenerator(["title"]);
+
+const paginationMiddleware = paginationGenerator(Playlist);
+
+router.get(
+  "/",
+  optionsMiddleware,
+  paginationMiddleware,
+  async (req, res, next) => {
+    const { _options: options } = req;
+    const playlists = await Playlist.findAll(options);
+    res.json(playlists);
+  }
+);
 
 module.exports = {
   router,
