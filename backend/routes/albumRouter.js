@@ -41,7 +41,7 @@ router.get("/", async (req, res, next) => {
   }
   try {
     if (results) {
-    if (validator.isInt(results)) {
+      if (validator.isInt(results)) {
         results = parseInt(results);
         if (results >= 1) {
           if (validator.isInt(page)) {
@@ -67,7 +67,9 @@ router.get("/", async (req, res, next) => {
                 next(err);
               }
             } else {
-              const err = new Error("page should be greater than or equal to 0");
+              const err = new Error(
+                "page should be greater than or equal to 0"
+              );
               err.status = 404;
               next(err);
             }
@@ -76,7 +78,7 @@ router.get("/", async (req, res, next) => {
             err.status = 404;
             next(err);
           }
-        } else if (results * page === 0) {
+        } else if (results + parseInt(page) === 0) {
           const albums = await Album.findAll(options);
           res.json(albums);
         } else {
@@ -90,6 +92,8 @@ router.get("/", async (req, res, next) => {
         next(err);
       }
     } else {
+      options.limit = limit;
+      options.offset = offset;
       const albums = await Album.findAll(options);
       res.json(albums);
     }
