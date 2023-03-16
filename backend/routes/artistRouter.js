@@ -18,6 +18,14 @@ const optionsMiddleware = optionsGenerator(["first_name", "last_name"]);
 
 const paginationMiddlware = paginationGenerator(Artist);
 
+// get all songs associated with a given artist
+router.get("/:id/songs", validateArtistId, async (req, res, next) => {
+  const artistSongs = await Artist.findByPk(req.params.id, {
+    include: ["songs"],
+  });
+  res.status(200).json(artistSongs);
+});
+
 router.get("/:id", validateArtistId, async (req, res, next) => {
   const { id } = req.params;
   const artist = await Artist.findByPk(id);
@@ -33,7 +41,7 @@ router.get(
 
     const artists = await Artist.findAll(options);
 
-    res.json(artists);
+    res.status(200).json(artists);
   }
 );
 
