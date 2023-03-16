@@ -14,11 +14,19 @@ const optionsMiddleware = optionsGenerator(["title"]);
 const paginationMiddlware = paginationGenerator(Song);
 
 // get artist associated with given song id
-router.get("/:id/artists", async (req, res, next) => {
+router.get("/:id/artists", validateSongId, async (req, res, next) => {
   const songArtists = await Song.findByPk(req.params.id, {
     include: "artists",
   });
   res.status(200).json(songArtists);
+});
+
+// get associated playlists
+router.get("/:id/playlists", validateSongId, async (req, res, next) => {
+  const songPlaylists = await Song.findByPk(req.params.id, {
+    include: "playlists",
+  });
+  res.status(200).json(songPlaylists);
 });
 
 // get song by song id
