@@ -6,6 +6,10 @@ module.exports = {
     password: process.env.PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.HOST,
+    jwtConfig: {
+      secret: process.env.JWT_SECRET,
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    },
     dialect: "postgres",
   },
   test: {
@@ -13,6 +17,10 @@ module.exports = {
     password: process.env.PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.HOST,
+    jwtConfig: {
+      secret: process.env.JWT_SECRET,
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    },
     dialect: "postgres",
   },
   production: {
@@ -20,6 +28,10 @@ module.exports = {
     password: process.env.PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.HOST,
+    jwtConfig: {
+      secret: process.env.JWT_SECRET,
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    },
     dialect: "postgres",
   },
 };

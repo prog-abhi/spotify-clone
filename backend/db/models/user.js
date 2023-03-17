@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, Op } = require("sequelize");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
@@ -25,6 +25,57 @@ module.exports = (sequelize, DataTypes) => {
 
     static checkPassword(password, hashed_password) {
       return bcrypt.compareSync(password, hashed_password);
+    }
+
+    toSafeObject() {
+      const { username, email } = this;
+      return {
+        user: {
+          username,
+          email,
+        },
+      };
+    }
+
+    static async login({ credential, password }) {
+      const userObj = await user.scope("admin").findOne({
+        where: {
+          [Op.or]: [{ username: credential }, { email: credential }],
+        },
+      });
+
+      if (!userObj) {
+        const err = new Error("Invalid credentials!");
+        err.status = 401;
+        throw err;
+      } else {
+        if (!user.checkPassword(password, userObj.hashed_password)) {
+          const err = new Error("Invalid password!");
+          err.status = 401;
+          throw err;
+        } else {
+          const userObjToSend = await user.findByPk(userObj.id);
+          return { user: userObjToSend };
+        }
+      }
+    }
+
+    static async signup({ username, first_name, last_name, email, password }) {
+      const hashed_password = user.generateHashpassword(password);
+
+      const userObj = await user.create({
+        username,
+        first_name,
+        last_name,
+        email,
+        hashed_password,
+      });
+
+      return {
+        status: "Success",
+        msg: "New user added!",
+        ...userObj.toSafeObject(),
+      };
     }
   }
   user.init(
