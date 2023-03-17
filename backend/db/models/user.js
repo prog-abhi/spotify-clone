@@ -27,6 +27,16 @@ module.exports = (sequelize, DataTypes) => {
       return bcrypt.compareSync(password, hashed_password);
     }
 
+    toSafeObject() {
+      const { username, email } = this;
+      return {
+        user: {
+          username,
+          email,
+        },
+      };
+    }
+
     static async login({ credential, password }) {
       const userObj = await user.scope("admin").findOne({
         where: {
@@ -48,6 +58,24 @@ module.exports = (sequelize, DataTypes) => {
           return { user: userObjToSend };
         }
       }
+    }
+
+    static async signup({ username, first_name, last_name, email, password }) {
+      const hashed_password = user.generateHashpassword(password);
+
+      const userObj = await user.create({
+        username,
+        first_name,
+        last_name,
+        email,
+        hashed_password,
+      });
+
+      return {
+        status: "Success",
+        msg: "New user added!",
+        ...userObj.toSafeObject(),
+      };
     }
   }
   user.init(
